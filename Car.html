@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title> CarAnimation </title>
+</head>
+<body>
+    <div style="background-color:gray; height: 5%; width: 50%; margin-top: 200px;margin-left: -8px;">
+    </div>
+    <div>
+        <img src="img2.gif"   alt="Car_Image" style="height: 100px; width: 150px; position: absolute; top: 127px; left: 0px; rotate:20;" id="car">
+    </div>
+    <div>
+        <br>
+        <input type="button" id="Start" onclick="Start()" value="Start" style="font-size: 20;">
+        <input type="button" id="Stop" onclick="Stop()" value="Stop" style="font-size: 20;" disabled = null>
+    </div>
+
+    <script>
+        var counter = 0;
+        var topCounter = 127;
+        var arr = new Array();
+        var degree1 = 30
+
+        function moveCar () {
+            counter = counter + 1;
+            var refToCar = document.getElementById("car");
+            refToCar.style.left = counter + "px";
+            console.log(counter);
+            if (counter == 590){
+                var degree = refToCar.style.rotate = "30deg";
+                Stopper();
+            }
+        }
+
+        function Stopper (){
+            debugger;
+            while (arr.length != 0){
+                var token = arr.pop();
+                if (token != undefined){
+                    window.clearInterval(token);
+                }
+            } 
+            var refToStop = document.getElementById("Stop");
+            refToStop.disabled = "disabled";
+            window.setInterval(Fall,100);
+        }
+
+        function Fall (){
+            var refToCar = document.getElementById("car");
+            degree1 = degree1 + 30;
+            refToCar.style.rotate = degree1+"deg";
+            topCounter = topCounter + 5;
+            refToCar.style.top = topCounter + "px";
+        }
+
+        function Start (){
+            var refToStop = document.getElementById("Stop");
+            refToStop.disabled = null;
+            var token = window.setInterval(moveCar,100);
+            arr.push(token);
+        }
+
+        function Stop(){
+            var token = arr.pop();
+            if (token != undefined){
+                window.clearInterval(token);
+                if (arr.length == 0){
+                    var refToStop = document.getElementById("Stop");
+                    refToStop.disabled = "disabled";
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
